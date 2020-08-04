@@ -1,0 +1,14 @@
+import requests
+from bs4 import BeautifulSoup
+import csv 
+
+
+URL = 'https://movie.naver.com/movie/running/current.nhn'
+response = requests.get(URL)
+
+soup = BeautifulSoup( response.text , 'html.parser')
+
+list = soup.select("div.article dt.tit a")
+for movie_name_movie_code in list:
+    new_data = {'name' : movie_name_movie_code.text,'code' : movie_name_movie_code['href'][28:]}
+    print(new_data)
